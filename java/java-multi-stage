@@ -1,0 +1,11 @@
+FROM openjdk:latest AS build
+WORKDIR /app
+COPY . .
+RUN javac App.java
+
+
+FROM openjdk
+WORKDIR /app
+COPY --from=build /app /app
+EXPOSE 8080
+CMD ["java", "App"]
